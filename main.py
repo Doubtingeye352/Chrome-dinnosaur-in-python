@@ -10,10 +10,8 @@ import math
 
 #enemy come from right
 #jumping player
-#continues enemys
 #collusion detection
-#restart
-#graphic
+#graphics
 # and a screen with the game
 
 
@@ -68,21 +66,6 @@ def Collision(t1, t2):
     else:
         return False
 
-def red():
-    player.color("red")
-
-
-def blue():
-    player.color("blue")
-
-def defaunt():
-    player.color("black")
-
-def green():
-    player.color("green")
-
-
-
 
 enemyspeed = 5
 enemyspeed2 = 6
@@ -104,10 +87,6 @@ Gravity = -0.8
 
 wn.listen()
 wn.onkeypress(jump, "space")
-wn.onkeypress(red, "r")
-wn.onkeypress(blue, "b")
-wn.onkeypress(defaunt, "d")
-wn.onkeypress(green, "g")
 
 
 
