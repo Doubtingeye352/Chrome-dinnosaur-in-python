@@ -10,12 +10,14 @@ import math
 
 #enemy come from right
 #jumping player
+#continues enemys
 #collusion detection
-#graphics
+#restart
+#graphic
 # and a screen with the game
 
 
-
+score = 0
 
 wn = turtle.Screen()
 wn.title("chrome dino")
@@ -33,6 +35,12 @@ pen.write("Loading....", font=("Roboto", 10, "normal"))
 time.sleep(5)
 pen.clear()
 pen.hideturtle()
+
+
+pen2 = turtle.Turtle()
+pen2.penup()
+pen2.goto(250,300)
+pen2.hideturtle()
 
 player = turtle.Turtle()
 player.shape("square")
@@ -67,8 +75,10 @@ def Collision(t1, t2):
         return False
 
 
-enemyspeed = 5
-enemyspeed2 = 6
+
+
+enemyspeed = 10
+enemyspeed2 = 8
 
 
 
@@ -76,7 +86,7 @@ enemyspeed2 = 6
 
 def jump():
     if player.state == "Ready":
-        player.dy = 12
+        player.dy = 14
         player.state = "jumping"
 
 
@@ -93,6 +103,17 @@ wn.onkeypress(jump, "space")
 
 while True:
     wn.update()
+
+
+
+    pen2.clear()
+    pen2.write(score, font=("arial",26,"normal"))
+
+
+
+
+
+
 
     # Gravity
     player.dy += Gravity
@@ -112,6 +133,8 @@ while True:
     x = x - enemyspeed
     if x < -400:
         x = 345
+        score +=1
+
 
     enemy.setx(x)
 
@@ -119,20 +142,30 @@ while True:
     x = x - enemyspeed2
     if x < -400:
         x = 345
+        score +=1
+
 
     enemy2.setx(x)
+
 
     if Collision(player, enemy):
         enemy.hideturtle()
         player.hideturtle()
         enemy2.hideturtle()
         pen.write("game over", font=("arial", 26, "normal"))
+        pen2.goto(1000,1000)
+
+
 
     if Collision(player, enemy2):
         enemy2.hideturtle()
         enemy.hideturtle()
         player.hideturtle()
         pen.write("game over", font=("arial", 26, "normal"))
+        pen2.goto(1000,1000)
+
+
+
 
 
 
@@ -140,5 +173,7 @@ while True:
 
 
 wn.mainloop()
+
+
 
 
