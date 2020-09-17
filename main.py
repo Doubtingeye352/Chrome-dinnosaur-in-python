@@ -1,6 +1,7 @@
 import turtle
 import time
 import math
+import random
 
 
 
@@ -10,10 +11,8 @@ import math
 
 #enemy come from right
 #jumping player
-#continues enemys
 #collusion detection
-#restart
-#graphic
+#graphics
 # and a screen with the game
 
 
@@ -35,6 +34,9 @@ pen.write("Loading....", font=("Roboto", 10, "normal"))
 time.sleep(5)
 pen.clear()
 pen.hideturtle()
+
+powerup = 0
+
 
 
 pen2 = turtle.Turtle()
@@ -65,7 +67,20 @@ enemy2.color("red")
 enemy2.penup()
 enemy2.goto(320, -225)
 
+ground = turtle.Turtle()
+ground.penup()
+ground.goto(-340,-236)
+ground.shape("square")
+ground.setheading(90)
+ground.shapesize(stretch_wid= 100, stretch_len=0.1)
 
+
+food = turtle.Turtle()
+food.shape("circle")
+food.color("green")
+food.penup()
+x = random.randint(-200, 200)
+food.goto(x,-225)
 
 def Collision(t1, t2):
     distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
@@ -73,6 +88,7 @@ def Collision(t1, t2):
         return True
     else:
         return False
+
 
 
 
@@ -97,7 +113,7 @@ Gravity = -0.8
 
 wn.listen()
 wn.onkeypress(jump, "space")
-
+foodspeed = 10
 
 
 
@@ -133,7 +149,7 @@ while True:
     x = x - enemyspeed
     if x < -400:
         x = 345
-        score +=1
+
 
 
     enemy.setx(x)
@@ -142,7 +158,7 @@ while True:
     x = x - enemyspeed2
     if x < -400:
         x = 345
-        score +=1
+
 
 
     enemy2.setx(x)
@@ -154,6 +170,7 @@ while True:
         enemy2.hideturtle()
         pen.write("game over", font=("arial", 26, "normal"))
         pen2.goto(1000,1000)
+        food.hideturtle()
 
 
 
@@ -163,6 +180,26 @@ while True:
         player.hideturtle()
         pen.write("game over", font=("arial", 26, "normal"))
         pen2.goto(1000,1000)
+        food.hideturtle()
+
+    x = food.xcor()
+    x = x - foodspeed
+    if x < -400:
+        x = random.randint(-200, 400)
+        food.setposition(x,-225)
+
+    food.setx(x)
+
+
+
+    if Collision(player, food):
+        food.hideturtle()
+        score += 10
+        x = random.randint(-200, 400)
+        food.setposition(x, -225)
+        food.showturtle()
+
+
 
 
 
@@ -173,7 +210,4 @@ while True:
 
 
 wn.mainloop()
-
-
-
 
