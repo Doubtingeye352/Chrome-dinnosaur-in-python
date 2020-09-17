@@ -12,6 +12,7 @@ import math
 #jumping player
 #continues enemys
 #collusion detection
+#restart
 #graphic
 # and a screen with the game
 
@@ -23,13 +24,14 @@ wn.title("chrome dino")
 wn.setup(1000,1000)
 wn.tracer(0)
 
+
 Gnd = -232
 
 pen = turtle.Turtle()
 pen.penup()
-pen.goto(-220,0)
+pen.goto(-220, 0)
 pen.color("black")
-pen.write("Loading....", font=("Roboto",10,"normal"))
+pen.write("Loading....", font=("Roboto", 10, "normal"))
 time.sleep(5)
 pen.clear()
 pen.hideturtle()
@@ -45,10 +47,6 @@ player.dx = 0
 player.state = "ready"
 player.goto(-340, Gnd + player.height / 2)
 
-
-
-
-
 enemy = turtle.Turtle()
 enemy.shape("circle")
 enemy.color("red")
@@ -62,6 +60,7 @@ enemy2.penup()
 enemy2.goto(320, -225)
 
 
+
 def Collision(t1, t2):
     distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
     if distance < 20:
@@ -69,10 +68,28 @@ def Collision(t1, t2):
     else:
         return False
 
+def red():
+    player.color("red")
+
+
+def blue():
+    player.color("blue")
+
+def defaunt():
+    player.color("black")
+
+def green():
+    player.color("green")
+
+
 
 
 enemyspeed = 5
 enemyspeed2 = 6
+
+
+
+
 
 def jump():
     if player.state == "Ready":
@@ -82,10 +99,15 @@ def jump():
 
 Gravity = -0.8
 
+
+
+
 wn.listen()
 wn.onkeypress(jump, "space")
-
-
+wn.onkeypress(red, "r")
+wn.onkeypress(blue, "b")
+wn.onkeypress(defaunt, "d")
+wn.onkeypress(green, "g")
 
 
 
@@ -112,7 +134,6 @@ while True:
     if x < -400:
         x = 345
 
-
     enemy.setx(x)
 
     x = enemy2.xcor()
@@ -121,7 +142,6 @@ while True:
         x = 345
 
     enemy2.setx(x)
-
 
     if Collision(player, enemy):
         enemy.hideturtle()
@@ -133,11 +153,7 @@ while True:
         enemy2.hideturtle()
         enemy.hideturtle()
         player.hideturtle()
-        pen.write("game over", font=("arial",26,"normal"))
-
-
-
-
+        pen.write("game over", font=("arial", 26, "normal"))
 
 
 
@@ -145,4 +161,5 @@ while True:
 
 
 wn.mainloop()
+
 
